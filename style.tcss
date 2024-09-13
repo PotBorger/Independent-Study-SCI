@@ -1,0 +1,13 @@
+#container {
+    layout: grid;
+    grid-size: 2;
+    grid-columns: 0.75fr 2.25fr;
+    margin: 1 2;
+    min-height: 30;
+    min-width: 30;
+    height: 100%;
+
+    &:inline {
+        margin: 0 2;
+    }
+}
