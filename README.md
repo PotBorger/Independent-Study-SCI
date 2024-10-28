@@ -11,4 +11,4 @@ Copyright: Nolan Mai
 # Overview of the tool functionality
     This tool currently can display both the table and the tree with their data displayed on the same lines.
 # Demo Image
-<img width="1440" alt="Screenshot 2024-10-28 at 5 05 09 PM" src="https://github.com/user-attachments/assets/1f20fbcc-6ef1-4baa-a3da-2219f58723b6">
+<img width="1440" alt="Screenshot 2024-10-28 at 5 11 35 PM" src="https://github.com/user-attachments/assets/d8006f4a-94f3-4445-8e9a-28d92b275c30">
