@@ -11,6 +11,3 @@
         margin: 0 2;
     }
 }
-DataTable{
-    border: ascii;
-}
