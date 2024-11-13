@@ -4,28 +4,31 @@ from textual.widgets import Tree, DataTable
 from textual.reactive import reactive
 from textual.widgets.tree import TreeNode
 from textual.binding import Binding
+from textual import log
+import json
+
+from textual.widgets import DataTable
+
+
 
 
 class TreeTableApp(App):
     CSS_PATH = "style.tcss"
-    BINDINGS = [
-        Binding("enter", "select_cursor", "Select"),
-        Binding("space", "toggle_node", "Toggle"),
-        Binding("up", "cursor_up", "Cursor Up"),
-        Binding("down", "cursor_down", "Cursor Down"),
-    ]
-
+    # BINDINGS = [
+    #     Binding("enter", "select_cursor", "Select"),
+    #     Binding("space", "toggle_node", "Toggle"),
+    #     Binding("up", "cursor_up", "Cursor Up"),
+    #     Binding("down", "cursor_down", "Cursor Down"),
+    # ]
 #     DATA_TREE = {
 #     "Data Tree": {
-#         "open": True,  
+#         "open": True,
 #         "children": {
-
 #             "A": {
-#                 "open": True,  
+#                 "open": True,
 #                 "data": {
 #                     "value": 5
 #                 },
-                
 #                 "children": {
 #                     "B": {
 #                         "open": True,
@@ -35,26 +38,26 @@ class TreeTableApp(App):
 #                         "children": {}
 #                     },
 #                     "C": {
-#                         "open": True, 
+#                         "open": False,
 #                         "data": {
 #                             "value": 4
 #                         },
 #                         "children": {
 #                             "D": {
-#                                 "open": True, 
-#                                 "data": {
-#                                     "value": 12,
-#                                     "message": "hi"
-#                                 },\
-#                                 "children": {
-#                                     "E": {
-#                                 "open": True, 
+#                                 "open": False,
 #                                 "data": {
 #                                     "value": 12,
 #                                     "message": "hi"
 #                                 },
-#                                 "children": {}
-#                             }
+#                                 "children": {
+#                                     "E": {
+#                                         "open": False,
+#                                         "data": {
+#                                             "value": 12,
+#                                             "message": "hi"
+#                                         },
+#                                         "children": {}
+#                                     }
 #                                 }
 #                             }
 #                         }
@@ -64,222 +67,50 @@ class TreeTableApp(App):
 #         }
 #     }
 # }
-
-    DATA_TREE = {
-        "Data Tree": {
-            "open": True,
-            "children": {
-                "Company": {
-                    "open": True,
-                    "data": {
-                        "name": "TechCorp",
-                        "established": 2005
-                    },
-                    "children": {
-                        "HR Department": {
-                            "open": True,
-                            "data": {
-                                "head": "Alice Johnson",
-                                "employees": 25
-                            },
-                            "children": {
-                                "Recruitment Team": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Michael Brown",
-                                        "open_positions": 5
-                                    },
-                                    "children": {}
-                                },
-                                "Training Team": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Sophie Green",
-                                        "trainings_conducted": 8
-                                    },
-                                    "children": {}
-                                }
-                            }
-                        },
-                        "Engineering Department": {
-                            "open": True,
-                            "data": {
-                                "head": "David Wilson",
-                                "employees": 100
-                            },
-                            "children": {
-                                "Backend Team": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "James Carter",
-                                        "projects": 5
-                                    },
-                                    "children": {
-                                        "API Project": {
-                                            "open": True,
-                                            "data": {
-                                                "project_lead": "Sophia Thompson",
-                                                "status": "In Progress",
-                                                "developers": 10
-                                            },
-                                            "children": {}
-                                        },
-                                        "Database Optimization": {
-                                            "open": True,
-                                            "data": {
-                                                "project_lead": "Robert Miller",
-                                                "progress": "60%"
-                                            },
-                                            "children": {}
-                                        }
-                                    }
-                                },
-                                "Frontend Team": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Emma Garcia",
-                                        "projects": 3
-                                    },
-                                    "children": {
-                                        "UI Redesign": {
-                                            "open": True,
-                                            "data": {
-                                                "project_lead": "Liam Martinez",
-                                                "status": "In Progress",
-                                                "designers": 4
-                                            },
-                                            "children": {}
-                                        },
-                                        "Accessibility Improvement": {
-                                            "open": True,
-                                            "data": {
-                                                "project_lead": "Grace Lopez",
-                                                "status": "Planning",
-                                                "expected_completion": "Q4 2024"
-                                            },
-                                            "children": {}
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "Sales Department": {
-                            "open": True,
-                            "data": {
-                                "head": "Laura Roberts",
-                                "employees": 40
-                            },
-                            "children": {
-                                "Domestic Sales": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Noah Walker",
-                                        "clients": 75
-                                    },
-                                    "children": {}
-                                },
-                                "International Sales": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "William White",
-                                        "clients": 50
-                                    },
-                                    "children": {
-                                        "Europe Region": {
-                                            "open": True,
-                                            "data": {
-                                                "region_lead": "Charlotte Anderson",
-                                                "active_clients": 20
-                                            },
-                                            "children": {}
-                                        },
-                                        "Asia Region": {
-                                            "open": True,
-                                            "data": {
-                                                "region_lead": "Henry Harris",
-                                                "active_clients": 30
-                                            },
-                                            "children": {}
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "Finance Department": {
-                            "open": True,
-                            "data": {
-                                "head": "Ethan Clark",
-                                "budget": "10M USD"
-                            },
-                            "children": {
-                                "Audit Team": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Mason Lewis",
-                                        "auditors": 8,
-                                        "last_audit": "Q2 2024"
-                                    },
-                                    "children": {}
-                                },
-                                "Accounts Payable": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Ava King",
-                                        "invoices_processed": 300
-                                    },
-                                    "children": {}
-                                }
-                            }
-                        },
-                        "Operations Department": {
-                            "open": True,
-                            "data": {
-                                "head": "Grace Young",
-                                "employees": 30
-                            },
-                            "children": {
-                                "Logistics Team": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Lucas Scott",
-                                        "deliveries_per_month": 150
-                                    },
-                                    "children": {}
-                                },
-                                "Facility Management": {
-                                    "open": True,
-                                    "data": {
-                                        "team_lead": "Amelia Baker",
-                                        "buildings_managed": 5
-                                    },
-                                    "children": {}
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
+    # DATA_TREE = {"Data Tree":{
+    #     "open":False,
+    #     "children":{
+    #         "A":{
+    #             "open":False,
+    #             "data":{},
+    #             "children":{
+    #                 "B":{
+    #                 "open": False,
+    #                 "data":{},
+    #                 "children":{}
+    #                 }
+    #             }
+    #         }
+    #     }
+    # }}
+    with open("ExampleJsonShort.json", "r") as file:
+        DATA_TREE = json.load(file)
 
     def compose(self):
         with Container(id="container"):
-            # Create a tree widget
-            tree: Tree[dict] = Tree("Data Tree")
+            # Create a tree widget 
+            tree: Tree[dict] = Tree("Data Tree",id='tree')
+            
+            # self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
+            # yield tree
             self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
             yield tree
 
-                        # Create a DataTable widget
-            table = DataTable()
-            yield table
 
+            # Create a DataTable widget
+            table = DataTable(id='table')
+            yield table
             # Build the table columns and rows
             self.build_table(table, self.DATA_TREE["Data Tree"])
+            self.is_scrollable = False
+            
+            # table.scrollbars_enabled = (False, False)
+            
+
 
     def build_tree(self, root_node: TreeNode, node_data: dict):
     # Set the expansion state based on the 'open' field
-        if node_data.get("open",False):
+        if node_data.get("open"):
             root_node.expand()
         else:
             root_node.collapse()
@@ -287,7 +118,6 @@ class TreeTableApp(App):
         # Iterate over the children nodes
         children = node_data.get("children", {})
         for child_name, child_data in children.items():
-           
             if child_name == "open":
                 continue
 
@@ -303,6 +133,7 @@ class TreeTableApp(App):
             if "children" in child_data and isinstance(child_data["children"], dict):
                 self.build_tree(child_node, child_data)
 
+    
     def build_table(self, table: DataTable, node_data: dict):
         # Collect all unique keys from the data properties of all nodes
         columns = {}
@@ -311,8 +142,10 @@ class TreeTableApp(App):
         # Populate the DataTable with rows based on the data in each node
         self.populate_table_rows(table, node_data)
 
+    
     def collect_columns(self, node_data: dict, columns: dict, table: DataTable):
         """Recursively collect all unique column keys from the data properties and add columns to the table."""
+
         if "data" in node_data:
             for key in node_data["data"].keys():
                 if key not in columns:
@@ -324,8 +157,11 @@ class TreeTableApp(App):
         for child_data in children.values():
             self.collect_columns(child_data, columns, table)
 
+    
     def populate_table_rows(self, table: DataTable, node_data: dict, parent_key=""):
         """Recursively populate the table rows based on the data properties."""
+        if not node_data.get("open",False):
+            return
         if "data" in node_data:
             # Create a unique key for each row based on the hierarchy in the data tree
             table.add_row("")
@@ -345,6 +181,66 @@ class TreeTableApp(App):
             child_key = f"{parent_key}_{child_name}" if parent_key else child_name
             self.populate_table_rows(table, child_data, parent_key=child_key)
 
+
+    def _finditem(self,obj:dict, key):
+        if key in obj: return obj[key]
+        for k, v in obj.items():
+            if isinstance(v,dict):
+                item = self._finditem(v, key)
+                if item is not None:
+                    return item
+            
+    # def update_ui(self):
+    #     # Access the widgets by their IDs
+    #     tree: Tree[dict] = self.query_one("#tree")
+    #     table: DataTable = self.query_one("#table")
+
+    #     # Clear the existing tree and table
+        
+    #     table.clear(columns=True)
+
+    #     # Rebuild the tree and table with the updated DATA_TREE
+    #     self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
+    #     self.build_table(table, self.DATA_TREE["Data Tree"])
+
+    # Event handler for node expansion
+    def on_tree_node_expanded(self, event: Tree.NodeExpanded) -> None:
+        node = event.node
+        node_name = node.label
+        items_in_node = self._finditem(self.DATA_TREE,str(node_name))
+        items_in_node['open'] = True
+        current_state_of_node = items_in_node['open']
+        self.log.debug(str(self.DATA_TREE))
+        self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
+        new_data = json.dumps(self.DATA_TREE)
+        # self.update_ui()
+        # self.DATA_TREE = json.loads(new_data)
+        # self.compose()
+
+
+        # self.set_node_open_state(self.DATA_TREE, node_key, open=False)
+        
+
+    def on_tree_node_collapsed(self, event: Tree.NodeCollapsed) -> None:
+        node = event.node
+        node_name = node.label
+        items_in_node = self._finditem(self.DATA_TREE,str(node_name))
+        items_in_node['open'] = False
+        current_state_of_node = items_in_node['open']
+        self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
+        new_data = json.dumps(self.DATA_TREE)
+        self.log.debug(str(new_data))
+        # self.update_ui()
+        # self.DATA_TREE = json.loads(new_data)
+        # self.compose()
+
+
+   
+
+
+
+
+
 if __name__ == "__main__":
-    app = TreeTableApp()
-    app.run()
+    TreeTableApp().run()
+    

@@ -1,0 +1,47 @@
+{
+    "Data Tree": {
+        "open": true,
+        "children": {
+            "A": {
+                "open": false,
+                "data": {
+                    "value": 5
+                },
+                "children": {
+                    "B": {
+                        "open": false,
+                        "data": {
+                            "value": 10
+                        },
+                        "children": {}
+                    },
+                    "C": {
+                        "open": false,
+                        "data": {
+                            "value": 4
+                        },
+                        "children": {
+                            "D": {
+                                "open": false,
+                                "data": {
+                                    "value": 12,
+                                    "message": "hi"
+                                },
+                                "children": {
+                                    "E": {
+                                        "open": false,
+                                        "data": {
+                                            "value": 12,
+                                            "message": "hi"
+                                        },
+                                        "children": {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,196 @@
+{
+    "Data Tree": {
+        "open": "True",
+        "children": {
+            "Company": {
+                "open": "True",
+                "data": {
+                    "name": "TechCorp",
+                    "established": 2005
+                },
+                "children": {
+                    "HR Department": {
+                        "open": "True",
+                        "data": {
+                            "head": "Alice Johnson",
+                            "employees": 25
+                        },
+                        "children": {
+                            "Recruitment Team": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Michael Brown",
+                                    "open_positions": 5
+                                },
+                                "children": {}
+                            },
+                            "Training Team": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Sophie Green",
+                                    "trainings_conducted": 8
+                                },
+                                "children": {}
+                            }
+                        }
+                    },
+                    "Engineering Department": {
+                        "open": "True",
+                        "data": {
+                            "head": "David Wilson",
+                            "employees": 100
+                        },
+                        "children": {
+                            "Backend Team": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "James Carter",
+                                    "projects": 5
+                                },
+                                "children": {
+                                    "API Project": {
+                                        "open": "True",
+                                        "data": {
+                                            "project_lead": "Sophia Thompson",
+                                            "status": "In Progress",
+                                            "developers": 10
+                                        },
+                                        "children": {}
+                                    },
+                                    "Database Optimization": {
+                                        "open": "True",
+                                        "data": {
+                                            "project_lead": "Robert Miller",
+                                            "progress": "60%"
+                                        },
+                                        "children": {}
+                                    }
+                                }
+                            },
+                            "Frontend Team": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Emma Garcia",
+                                    "projects": 3
+                                },
+                                "children": {
+                                    "UI Redesign": {
+                                        "open": "True",
+                                        "data": {
+                                            "project_lead": "Liam Martinez",
+                                            "status": "In Progress",
+                                            "designers": 4
+                                        },
+                                        "children": {}
+                                    },
+                                    "Accessibility Improvement": {
+                                        "open": "True",
+                                        "data": {
+                                            "project_lead": "Grace Lopez",
+                                            "status": "Planning",
+                                            "expected_completion": "Q4 2024"
+                                        },
+                                        "children": {}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Sales Department": {
+                        "open": "True",
+                        "data": {
+                            "head": "Laura Roberts",
+                            "employees": 40
+                        },
+                        "children": {
+                            "Domestic Sales": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Noah Walker",
+                                    "clients": 75
+                                },
+                                "children": {}
+                            },
+                            "International Sales": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "William White",
+                                    "clients": 50
+                                },
+                                "children": {
+                                    "Europe Region": {
+                                        "open": "True",
+                                        "data": {
+                                            "region_lead": "Charlotte Anderson",
+                                            "active_clients": 20
+                                        },
+                                        "children": {}
+                                    },
+                                    "Asia Region": {
+                                        "open": "True",
+                                        "data": {
+                                            "region_lead": "Henry Harris",
+                                            "active_clients": 30
+                                        },
+                                        "children": {}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Finance Department": {
+                        "open": "True",
+                        "data": {
+                            "head": "Ethan Clark",
+                            "budget": "10M USD"
+                        },
+                        "children": {
+                            "Audit Team": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Mason Lewis",
+                                    "auditors": 8,
+                                    "last_audit": "Q2 2024"
+                                },
+                                "children": {}
+                            },
+                            "Accounts Payable": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Ava King",
+                                    "invoices_processed": 300
+                                },
+                                "children": {}
+                            }
+                        }
+                    },
+                    "Operations Department": {
+                        "open": "True",
+                        "data": {
+                            "head": "Grace Young",
+                            "employees": 30
+                        },
+                        "children": {
+                            "Logistics Team": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Lucas Scott",
+                                    "deliveries_per_month": 150
+                                },
+                                "children": {}
+                            },
+                            "Facility Management": {
+                                "open": "True",
+                                "data": {
+                                    "team_lead": "Amelia Baker",
+                                    "buildings_managed": 5
+                                },
+                                "children": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
