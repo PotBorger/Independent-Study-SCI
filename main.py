@@ -190,19 +190,15 @@ class TreeTableApp(App):
                 if item is not None:
                     return item
             
-    # def update_ui(self):
-    #     # Access the widgets by their IDs
-    #     tree: Tree[dict] = self.query_one("#tree")
-    #     table: DataTable = self.query_one("#table")
+    def update_ui(self):
+        # Access the table widget by its ID
+        table: DataTable = self.query_one("#table")
 
-    #     # Clear the existing tree and table
-        
-    #     table.clear(columns=True)
+        # Clear the existing table data
+        table.clear(columns=True)
 
-    #     # Rebuild the tree and table with the updated DATA_TREE
-    #     self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
-    #     self.build_table(table, self.DATA_TREE["Data Tree"])
-
+        # Rebuild the table with the updated DATA_TREE
+        self.build_table(table, self.DATA_TREE["Data Tree"])
     # Event handler for node expansion
     def on_tree_node_expanded(self, event: Tree.NodeExpanded) -> None:
         node = event.node
@@ -212,8 +208,7 @@ class TreeTableApp(App):
         current_state_of_node = items_in_node['open']
         self.log.debug(str(self.DATA_TREE))
         self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
-        new_data = json.dumps(self.DATA_TREE)
-        # self.update_ui()
+        self.update_ui()
         # self.DATA_TREE = json.loads(new_data)
         # self.compose()
 
@@ -228,9 +223,7 @@ class TreeTableApp(App):
         items_in_node['open'] = False
         current_state_of_node = items_in_node['open']
         self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
-        new_data = json.dumps(self.DATA_TREE)
-        self.log.debug(str(new_data))
-        # self.update_ui()
+        self.update_ui()
         # self.DATA_TREE = json.loads(new_data)
         # self.compose()
 
