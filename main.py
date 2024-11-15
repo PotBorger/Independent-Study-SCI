@@ -90,12 +90,8 @@ class TreeTableApp(App):
         with Container(id="container"):
             # Create a tree widget 
             tree: Tree[dict] = Tree("Data Tree",id='tree')
-            
-            # self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
-            # yield tree
             self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
             yield tree
-
 
             # Create a DataTable widget
             table = DataTable(id='table')
@@ -123,11 +119,10 @@ class TreeTableApp(App):
 
             # Add the child node
             child_node = root_node.add(child_name)
-
             # Add data as a leaf
-            if "data" in child_data:
-                for key, value in child_data["data"].items():
-                    child_node.add_leaf(f"{key}: {value}")
+            # if "data" in child_data:
+            #     for key, value in child_data["data"].items():
+            #         child_node.add_leaf(f"{key}: {value}")
 
             # Recursively build the tree for the child nodes
             if "children" in child_data and isinstance(child_data["children"], dict):
@@ -160,33 +155,34 @@ class TreeTableApp(App):
     
     def populate_table_rows(self, table: DataTable, node_data: dict, parent_key=""):
         """Recursively populate the table rows based on the data properties."""
-        if not node_data.get("open",False):
-            return
         if "data" in node_data:
             # Create a unique key for each row based on the hierarchy in the data tree
-            table.add_row("")
-            for key, value in node_data["data"].items():
-                row_key = f"{parent_key}_{key}_row" if parent_key else f"{key}_row"
-                # Prepare a row with values in the same order as the columns
-                row = []
-                for column in table.columns.keys():
-                    row.append(str(value) if column == key else "")
+            row_key = f"{parent_key}_row" if parent_key else "root_row"
 
-                # Add the row to the table with a unique key
-                table.add_row(*row, key=row_key, height=1)
+            # Prepare a row with values in the same order as the columns
+            row = []
+            for column in table.columns.keys():
+                value = node_data["data"].get(column, "")
+                row.append(str(value))
 
-        children = node_data.get("children", {})
-        for child_name, child_data in children.items():
-            # Recursively add rows for children nodes
-            child_key = f"{parent_key}_{child_name}" if parent_key else child_name
-            self.populate_table_rows(table, child_data, parent_key=child_key)
+            # Add the row to the table with a unique key
+            table.add_row(*row, key=row_key)
+
+        # Only populate rows from open children
+        if node_data.get("open", False):
+            children = node_data.get("children", {})
+            for child_name, child_data in children.items():
+                # Recursively add rows for children nodes
+                child_key = f"{parent_key}/{child_name}" if parent_key else child_name
+                self.populate_table_rows(table, child_data, parent_key=child_key)
 
 
-    def _finditem(self,obj:dict, key):
+
+    def find_node(self,obj:dict, key):
         if key in obj: return obj[key]
         for k, v in obj.items():
             if isinstance(v,dict):
-                item = self._finditem(v, key)
+                item = self.find_node(v, key)
                 if item is not None:
                     return item
             
@@ -199,39 +195,26 @@ class TreeTableApp(App):
 
         # Rebuild the table with the updated DATA_TREE
         self.build_table(table, self.DATA_TREE["Data Tree"])
+    
     # Event handler for node expansion
     def on_tree_node_expanded(self, event: Tree.NodeExpanded) -> None:
         node = event.node
         node_name = node.label
-        items_in_node = self._finditem(self.DATA_TREE,str(node_name))
+        items_in_node = self.find_node(self.DATA_TREE,str(node_name))
         items_in_node['open'] = True
         current_state_of_node = items_in_node['open']
         self.log.debug(str(self.DATA_TREE))
         self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
         self.update_ui()
-        # self.DATA_TREE = json.loads(new_data)
-        # self.compose()
-
-
-        # self.set_node_open_state(self.DATA_TREE, node_key, open=False)
         
-
     def on_tree_node_collapsed(self, event: Tree.NodeCollapsed) -> None:
         node = event.node
         node_name = node.label
-        items_in_node = self._finditem(self.DATA_TREE,str(node_name))
+        items_in_node = self.find_node(self.DATA_TREE,str(node_name))
         items_in_node['open'] = False
         current_state_of_node = items_in_node['open']
         self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
         self.update_ui()
-        # self.DATA_TREE = json.loads(new_data)
-        # self.compose()
-
-
-   
-
-
-
 
 
 if __name__ == "__main__":
