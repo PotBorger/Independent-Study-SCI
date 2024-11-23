@@ -4,13 +4,13 @@ from textual.widgets import Tree, DataTable
 from textual.widgets.tree import TreeNode
 from textual.binding import Binding
 from textual import log
-import json
 from textual.widgets import DataTable
+from multipledispatch import dispatch
 
 
 
 class TreeTableApp(App):
-    CSS_PATH = "style.tcss"
+    CSS_PATH = "styles/style.tcss"
     BINDINGS = [
         Binding("enter", "select_cursor", "Select"),
         Binding("space", "toggle_node", "Toggle"),
@@ -18,10 +18,11 @@ class TreeTableApp(App):
         Binding("down", "cursor_down", "Cursor Down"),
     ]
 
-    json_file = "example11.json"
-
-    with open(f"json_files_for_testing/{json_file}", "r") as file:
-        DATA_TREE = json.load(file)
+    DATA_TREE = ''
+    collumns_to_display = None
+    
+    def __init__(self):
+        super().__init__()
 
     def compose(self):
         with Container(id="container"):
@@ -73,21 +74,39 @@ class TreeTableApp(App):
     def build_table(self, table: DataTable, node_data: dict):
         # Collect all unique keys from the data properties of all nodes
         columns = {}
-        self.collect_columns(node_data, columns, table)
-
+        if self.collumns_to_display == None:  # Show all columns if no specific columns are specified
+            self.collect_columns(node_data, columns, table)
+        else:  # Filter columns if specific ones are provided
+            self.collect_columns_filtered(node_data, columns, table)
         # Populate the DataTable with rows based on the data in each node
         self.populate_table_rows(table, node_data)
-
     
-    def collect_columns(self, node_data: dict, columns: dict, table: DataTable):
+    def collect_columns_filtered(self, node_data: dict, columns: dict, table: DataTable):
         """Recursively collect all unique column keys from the data properties and add columns to the table."""
-
         if "data" in node_data:
             for key in node_data["data"].keys():
-                if key not in columns:
-                    # Add a new column to the table and store its ColumnKey with a unique key
-                    column_key = table.add_column(label=key, key=key)
-                    columns[key] = column_key
+                    self.log.debug(self.collumns_to_display)
+                    self.log.debug(f"ENTERED FOR {key}")
+                    if key in self.collumns_to_display:
+                        if key not in columns:
+                            # Add a new column to the table and store its ColumnKey with a unique key
+                            column_key = table.add_column(label=key, key=key)
+                            columns[key] = column_key
+
+        children = node_data.get("children", {})
+        for child_data in children.values():
+            self.collect_columns_filtered(child_data, columns, table)
+
+    def collect_columns(self, node_data: dict, columns: dict, table: DataTable):
+        self.log.debug(str(self.collumns_to_display))
+        """Recursively collect all unique column keys from the data properties and add columns to the table."""
+        self.log.debug("SAI ROI")
+        if "data" in node_data:
+            for key in node_data["data"].keys():
+                    if key not in columns:
+                        # Add a new column to the table and store its ColumnKey with a unique key
+                        column_key = table.add_column(label=key, key=key)
+                        columns[key] = column_key
 
         children = node_data.get("children", {})
         for child_data in children.values():
@@ -145,7 +164,7 @@ class TreeTableApp(App):
         items_in_node['open'] = True
         current_state_of_node = items_in_node['open']
         self.log.debug(str(self.DATA_TREE))
-        self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
+        # self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
         self.update_ui()
         
     def on_tree_node_collapsed(self, event: Tree.NodeCollapsed) -> None:
@@ -154,10 +173,11 @@ class TreeTableApp(App):
         items_in_node = self.find_node(self.DATA_TREE,str(node_name))
         items_in_node['open'] = False
         current_state_of_node = items_in_node['open']
-        self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
+        # self.log.debug("node:" + str(node.label)+ "is open or not: " + str(current_state_of_node))
         self.update_ui()
 
-
-if __name__ == "__main__":
-    TreeTableApp().run()
-    
+    def drawTreeTable(self, data : str, cols:list = None):
+        if cols!=None:
+            self.collumns_to_display = cols.copy()
+        self.DATA_TREE = data
+        self.run()
