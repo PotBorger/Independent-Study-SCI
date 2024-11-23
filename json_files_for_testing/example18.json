@@ -1,0 +1,15 @@
+{
+    "Data Tree": {
+        "open": true,
+        "children": {
+            "Child✨": {
+                "open": true,
+                "data": {
+                    "symbol": "✨",
+                    "emoji": "🌳🌲🌴"
+                },
+                "children": {}
+            }
+        }
+    }
+}

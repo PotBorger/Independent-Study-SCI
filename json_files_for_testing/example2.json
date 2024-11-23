@@ -1,0 +1,14 @@
+{
+    "Data Tree": {
+        "open": true,
+        "children": {
+            "Child1": {
+                "open": true,
+                "data": {
+                    "value": 2
+                },
+                "children": {}
+            }
+        }
+    }
+}

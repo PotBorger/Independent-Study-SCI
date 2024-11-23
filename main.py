@@ -1,89 +1,26 @@
 from textual.app import App
 from textual.containers import Container
 from textual.widgets import Tree, DataTable
-from textual.reactive import reactive
 from textual.widgets.tree import TreeNode
 from textual.binding import Binding
 from textual import log
 import json
-
 from textual.widgets import DataTable
-
 
 
 
 class TreeTableApp(App):
     CSS_PATH = "style.tcss"
-    # BINDINGS = [
-    #     Binding("enter", "select_cursor", "Select"),
-    #     Binding("space", "toggle_node", "Toggle"),
-    #     Binding("up", "cursor_up", "Cursor Up"),
-    #     Binding("down", "cursor_down", "Cursor Down"),
-    # ]
-#     DATA_TREE = {
-#     "Data Tree": {
-#         "open": True,
-#         "children": {
-#             "A": {
-#                 "open": True,
-#                 "data": {
-#                     "value": 5
-#                 },
-#                 "children": {
-#                     "B": {
-#                         "open": True,
-#                         "data": {
-#                             "value": 10
-#                         },
-#                         "children": {}
-#                     },
-#                     "C": {
-#                         "open": False,
-#                         "data": {
-#                             "value": 4
-#                         },
-#                         "children": {
-#                             "D": {
-#                                 "open": False,
-#                                 "data": {
-#                                     "value": 12,
-#                                     "message": "hi"
-#                                 },
-#                                 "children": {
-#                                     "E": {
-#                                         "open": False,
-#                                         "data": {
-#                                             "value": 12,
-#                                             "message": "hi"
-#                                         },
-#                                         "children": {}
-#                                     }
-#                                 }
-#                             }
-#                         }
-#                     }
-#                 }
-#             }
-#         }
-#     }
-# }
-    # DATA_TREE = {"Data Tree":{
-    #     "open":False,
-    #     "children":{
-    #         "A":{
-    #             "open":False,
-    #             "data":{},
-    #             "children":{
-    #                 "B":{
-    #                 "open": False,
-    #                 "data":{},
-    #                 "children":{}
-    #                 }
-    #             }
-    #         }
-    #     }
-    # }}
-    with open("ExampleJsonShort.json", "r") as file:
+    BINDINGS = [
+        Binding("enter", "select_cursor", "Select"),
+        Binding("space", "toggle_node", "Toggle"),
+        Binding("up", "cursor_up", "Cursor Up"),
+        Binding("down", "cursor_down", "Cursor Down"),
+    ]
+
+    json_file = "example11.json"
+
+    with open(f"json_files_for_testing/{json_file}", "r") as file:
         DATA_TREE = json.load(file)
 
     def compose(self):
@@ -112,7 +49,10 @@ class TreeTableApp(App):
             root_node.collapse()
 
         # Iterate over the children nodes
+
         children = node_data.get("children", {})
+        if len(children.items()) == 0:
+            root_node.allow_expand = False
         for child_name, child_data in children.items():
             if child_name == "open":
                 continue
@@ -127,6 +67,7 @@ class TreeTableApp(App):
             # Recursively build the tree for the child nodes
             if "children" in child_data and isinstance(child_data["children"], dict):
                 self.build_tree(child_node, child_data)
+            
 
     
     def build_table(self, table: DataTable, node_data: dict):
