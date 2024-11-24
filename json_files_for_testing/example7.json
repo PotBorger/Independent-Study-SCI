@@ -1,16 +1,7 @@
 {
     "Data Tree": {
-        "open": true,
-        "data": {
-            "name": "Root",
-            "attributes": {
-                "height": 100,
-                "width": 200
-            }
-        },
         "children": {
             "Child1": {
-                "open": true,
                 "data": {
                     "name": "Child1",
                     "attributes": {
