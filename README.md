@@ -23,7 +23,7 @@
 
 ## ✍️ Authors
 
-Created by [Nolan Mai](https://github.com/PotBorger) under the guidance of Dr. Isaacs of SCI at the U.
+Created by [Nolan Mai](https://github.com/PotBorger) under the guidance of Dr. Kate Isaacs of SCI at the U.
 Reach out for feedback, suggestions, or contributions on [GitHub](https://github.com/PotBorger/Independent-Study-SCI).
 
 ---
@@ -114,19 +114,20 @@ The input JSON must follow this structure:
 ```
 Expected output:
 
+<img width="951" alt="Screenshot 2024-11-25 at 11 22 45 AM" src="https://github.com/user-attachments/assets/f915147e-e983-4261-8799-bc934efb99f0">
 
 ### Data Notes
 
 1. **`open`:** Defines whether the node is initially expanded (`true`) or collapsed (`false`).
 
  **Note** for **`open`**: This attribute is optional. If there is none, the program 
-will automatically add one **`open`:** for each node and set it to `false`, which makes the node collapsed.
+will automatically add one **`open`:** for each node and set it to `false`, making the node collapse.
 2. **`data`:** A dictionary containing key-value pairs associated with the node.
 3. **`children`:** A dictionary of child nodes, recursively formatted.
 
 ### Filtering out columns in DataTable
 
-To filter out the unnecessary data in the input json, add a **`[columns]`** list as the second argument when calling drawTreeTable.
+To filter out the unnecessary data in the input JSON, add a **`[columns]`** list as the second argument when calling drawTreeTable.
 
 ```python
 from TreeTableApp import TreeTableApp
@@ -141,6 +142,7 @@ app = TreeTableApp()
 app.drawTreeTable(data, ['value'])
 ```
 Expected output:
+<img width="953" alt="Screenshot 2024-11-25 at 11 23 28 AM" src="https://github.com/user-attachments/assets/b64055ca-f561-42ac-a6ab-8cf06a29e6b2">
 
 ---
 
