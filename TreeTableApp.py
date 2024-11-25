@@ -1,11 +1,10 @@
 from textual.app import App
-from textual.containers import Container
 from textual.widgets import Tree, DataTable
 from textual.widgets.tree import TreeNode
 from textual.binding import Binding
-from textual import log
 from textual.widgets import DataTable
-from multipledispatch import dispatch
+from textual.containers import Horizontal
+
 
 
 class TreeTableApp(App):
@@ -30,17 +29,25 @@ class TreeTableApp(App):
 
     def compose(self):
         """Compose the layout of the application."""
-        with Container(id="container"):
+        with Horizontal(id="container"):
             # Create a Tree widget and build its structure based on the JSON data
             tree: Tree[dict] = Tree("Data Tree", id='tree')
-            self.build_tree(tree.root, self.DATA_TREE["Data Tree"])
+            self.build_tree(tree.root, self.DATA_TREE["Data Tree"]) 
             yield tree
 
             # Create a DataTable widget and build its rows and columns
             table = DataTable(id='table')
+            table.zebra_stripes = True
+            table.cursor_type = "row"
+
             yield table
+
             self.build_table(table, self.DATA_TREE["Data Tree"])
             self.is_scrollable = False
+            
+
+        
+
 
     def build_tree(self, root_node: TreeNode, node_data: dict):
         """
@@ -212,3 +219,4 @@ class TreeTableApp(App):
             self.collumns_to_display = cols.copy()
         self.DATA_TREE = data
         self.run()
+    

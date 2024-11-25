@@ -3,11 +3,11 @@ from textual import *
 import json
 
 if __name__ == "__main__":
-    
-    with open("json_files_for_testing/example1.json", "r") as file:
+    file_name = "ExampleJsonShort.json"
+    with open(f"json_files_for_testing/{file_name}", "r") as file:
         data = json.load(file)
     app = TreeTableApp()
-    app.drawTreeTable(data)
+    app.drawTreeTable(data,['value'])
 
 
 

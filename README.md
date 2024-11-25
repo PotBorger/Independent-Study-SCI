@@ -28,21 +28,6 @@ Reach out for feedback, suggestions, or contributions on [GitHub](https://github
 
 ---
 
-## 🚀 Usage
-
-```python
-from TreeTableApp import TreeTableApp
-import json
-
-# Load your JSON data
-with open("json_files_for_testing/ExampleJsonShort.json", "r") as file:
-    data = json.load(file)
-
-# Initialize and run the app
-app = TreeTableApp()
-app.drawTreeTable(data, ['column1', 'column2'])
-```
-
 ### Keyboard Commands
 
 | Key          | Action                               |
@@ -56,35 +41,70 @@ app.drawTreeTable(data, ['column1', 'column2'])
 
 ---
 
+## 🚀 Usage
+
+```python
+from TreeTableApp import TreeTableApp
+import json
+
+# Load your JSON data
+with open("json_files_for_testing/ExampleJsonShort.json", "r") as file:
+    data = json.load(file)
+
+# Initialize and run the app
+app = TreeTableApp()
+app.drawTreeTable(data)
+```
+
 ## 📝 Data Format
 
 The input JSON must follow this structure:
 
 ```json
-{
-    "Data Tree": {
-        "open": true,  // Whether the node is expanded (true) or collapsed (false)
-                      // The root must always be "Data Tree" and should not contain any data
-        "children": {  // Child nodes
-            "Child Node 1": {
+                      
+            {
+    "Data Tree": { // Whether the node is expanded (true) or collapsed (false)
+                // The root must always be "Data Tree" and should not contain any data
+                // (no "data" attribute for the root node).
+        "open": true,
+        "children": {
+            "A": { //Child node
                 "open": false,
                 "data": {
-                    "key3": "value3"
-                },
-                "children": {}
-            },
-            "Child Node 2": {
-                "open": true,
-                "data": {
-                    "key4": "value4"
+                    "value": 5
                 },
                 "children": {
-                    "Sub-Child Node": {
+                    "B": {
                         "open": false,
                         "data": {
-                            "key5": "value5"
+                            "value": 10
                         },
                         "children": {}
+                    },
+                    "C": {
+                        "open": false,
+                        "data": {
+                            "value": 4
+                        },
+                        "children": {
+                            "D": {
+                                "open": false,
+                                "data": {
+                                    "value": 12,
+                                    "message": "hi"
+                                },
+                                "children": {
+                                    "E": {
+                                        "open": false,
+                                        "data": {
+                                            "value": 13,
+                                            "message": "hello"
+                                        },
+                                        "children": {}
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -92,15 +112,35 @@ The input JSON must follow this structure:
     }
 }
 ```
+Expected output:
+
 
 ### Data Notes
 
 1. **`open`:** Defines whether the node is initially expanded (`true`) or collapsed (`false`).
-**Note** for **`open`:**: This attribute is optional. If there is none, the program 
-will automatically add one **`open`:** for each node and set it to `false`, which makes the node
-collapsed.
+
+ **Note** for **`open`**: This attribute is optional. If there is none, the program 
+will automatically add one **`open`:** for each node and set it to `false`, which makes the node collapsed.
 2. **`data`:** A dictionary containing key-value pairs associated with the node.
 3. **`children`:** A dictionary of child nodes, recursively formatted.
+
+### Filtering out columns in DataTable
+
+To filter out the unnecessary data in the input json, add a **`[columns]`** list as the second argument when calling drawTreeTable.
+
+```python
+from TreeTableApp import TreeTableApp
+import json
+
+# Load your JSON data
+with open("json_files_for_testing/ExampleJsonShort.json", "r") as file:
+    data = json.load(file)
+
+# Initialize and run the app
+app = TreeTableApp()
+app.drawTreeTable(data, ['value'])
+```
+Expected output:
 
 ---
 
@@ -119,14 +159,14 @@ pip install textual
 1. Clone this repository:
     ```bash
     git clone https://github.com/PotBorger/Independent-Study-SCI.git
-    cd treetableapp
+    cd Independent-Study-SCI
     ```
 
 2. Use the sample data in `json_files_for_testing/ExampleJsonShort.json` or provide your own JSON file.
 
 3. Run the app:
     ```bash
-    python3 main.py
+    python3 program.py
     ```
 
 ---
