@@ -142,6 +142,7 @@ app = TreeTableApp()
 app.drawTreeTable(data, ['value'])
 ```
 Expected output:
+
 <img width="953" alt="Screenshot 2024-11-25 at 11 23 28 AM" src="https://github.com/user-attachments/assets/b64055ca-f561-42ac-a6ab-8cf06a29e6b2">
 
 ---
@@ -168,7 +169,7 @@ pip install textual
 
 3. Run the app:
     ```bash
-    python3 program.py
+    python program.py
     ```
 
 ---
