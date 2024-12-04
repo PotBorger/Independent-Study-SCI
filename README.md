@@ -1,4 +1,4 @@
-# 📦 TreeTableApp
+# 🌲📊 TreeTableApp
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Framework](https://img.shields.io/badge/framework-Textual-orange)
 
@@ -173,4 +173,8 @@ pip install textual
     ```
 
 ---
+
+## 👨‍💻 For demo/testing
+
+Try out different example files in **json_files_for_testing**.
 
